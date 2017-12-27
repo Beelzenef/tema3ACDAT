@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">tema3ACDAT</string>
+
+    <string name="btn_empleadosXML">Gestión empleados</string>
+    <string name="btn_MalagaMeteo">Málaga Meteo</string>
+    <string name="btn_Bizi">Bizi Zaragoza</string>
+    <string name="btn_lectorRSS">Lector RSS</string>
+</resources>
