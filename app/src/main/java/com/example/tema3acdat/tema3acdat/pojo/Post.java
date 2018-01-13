@@ -1,7 +1,7 @@
 package com.example.tema3acdat.tema3acdat.pojo;
 
 /**
- * Created by Beelzenef on 13/01/2018.
+ * Clase Post
  */
 
 public class Post {

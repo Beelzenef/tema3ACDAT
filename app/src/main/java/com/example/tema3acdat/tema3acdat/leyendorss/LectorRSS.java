@@ -1,9 +1,11 @@
-package com.example.tema3acdat.tema3acdat;
+package com.example.tema3acdat.tema3acdat.leyendorss;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.tema3acdat.tema3acdat.R;
 
 public class LectorRSS extends AppCompatActivity {
 

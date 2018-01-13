@@ -19,11 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LectorRSS" />
+        <activity android:name=".leyendorss.LectorRSS" />
         <activity android:name=".MalagaMeteo" />
         <activity android:name=".BiziZaragoza" />
         <activity android:name=".EmpleadosXML" />
-        <activity android:name=".VerRSS"/>
+        <activity android:name=".leyendorss.VerRSS"/>
     </application>
 
 </manifest>

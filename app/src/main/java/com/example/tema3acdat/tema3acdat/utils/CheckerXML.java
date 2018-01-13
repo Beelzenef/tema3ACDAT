@@ -1,11 +1,14 @@
 package com.example.tema3acdat.tema3acdat.utils;
 
 /**
- * Created by Beelzenef on 13/01/2018.
+ * Checker XML
  */
 
+import android.content.Context;
+import android.content.res.XmlResourceParser;
 import android.util.Xml;
 
+import com.example.tema3acdat.tema3acdat.R;
 import com.example.tema3acdat.tema3acdat.pojo.Post;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -107,50 +110,56 @@ public class CheckerXML {
         return stringResultante.toString();
     }
 
-
+*/
     public static String analizarXmlNextText(Context c) throws XmlPullParserException, IOException {
 
         StringBuilder stringResultante = new StringBuilder();
 
         double suma = 0.0;
-        double getNota = 0;
         int contador = 0;
 
+        int mayorSueldo = 0;
+        int menorSueldo = 0;
 
-        XmlResourceParser xrp = c.getResources().getXml(R.xml.alumnos);
+        XmlResourceParser xrp = c.getResources().getXml(R.xml.empleados);
         int eventType = xrp.getEventType();
         while (eventType != XmlPullParser.END_DOCUMENT) {
             switch (eventType) {
                 case XmlPullParser.START_TAG:
+
                     if (xrp.getName().equals("nombre")) {
                         stringResultante.append("Nombre: " + xrp.nextText() + "\n");
                     }
 
-                    if (xrp.getName().equals("nota")) {
-
-                        for (int i = 0; i < xrp.getAttributeCount(); i++) {
-                            stringResultante.append(xrp.getAttributeName(i) + ": " + xrp.getAttributeValue(i) + "\n");
-                            contador++;
-                        }
-
-                        getNota = Double.parseDouble(xrp.nextText());
-                        stringResultante.append("Nota: " + Double.toString(getNota) + "\n");
-                        suma += getNota;
+                    if (xrp.getName().equals("cargo")) {
+                        stringResultante.append("Cargo: " + xrp.nextText() + "\n");
                     }
-                    if (xrp.getName().equals("observaciones")) {
-                        stringResultante.append("Observaciones: " + xrp.nextText() + "\n\n");
+                    if (xrp.getName().equals("edad")) {
+                        suma += Double.parseDouble(xrp.getText());
+                        stringResultante.append("Edad: " + xrp.nextText() + "\n");
+                        contador++;
+                    }
+                    if (xrp.getName().equals("sueldo")) {
+                        if (Integer.parseInt(xrp.getText()) > mayorSueldo)
+                            mayorSueldo = Integer.parseInt(xrp.getText());
+                        if (Integer.parseInt(xrp.getText()) < menorSueldo)
+                            menorSueldo = Integer.parseInt(xrp.getText());
+
+                        stringResultante.append("Sueldo: " + xrp.nextText() + "\n");
                     }
                     break;
             }
             eventType = xrp.next();
         }
 
-        stringResultante.append("Media de todas las notas : " + String.format("%.2f", suma / contador));
+        stringResultante.append("Media de todas las edades : " + String.format("%.2f", suma / contador));
+        stringResultante.append("Menor sueldo : " + Integer.toString(menorSueldo));
+        stringResultante.append("Mayor sueldo : " + Integer.toString(mayorSueldo));
         xrp.close();
         return stringResultante.toString();
     }
 
-    */
+
 
     public static String analizarRSS(File file) throws NullPointerException, XmlPullParserException, IOException {
 

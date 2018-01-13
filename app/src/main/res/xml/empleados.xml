@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<empleados>
+    <empleado>
+        <nombre>Elena G</nombre>
+        <sueldo>3000</sueldo>
+        <edad>25</edad>
+        <cargo>Developer</cargo>
+    </empleado>
+    <empleado>
+        <nombre>Mikel B</nombre>
+        <sueldo>2000</sueldo>
+        <edad>45</edad>
+        <cargo>Designer</cargo>
+    </empleado>
+    <empleado>
+        <nombre>Lisbeth S</nombre>
+        <sueldo>5000</sueldo>
+        <edad>29</edad>
+        <cargo>Hacker</cargo>
+    </empleado>
+    <empleado>
+        <nombre>Miriam W</nombre>
+        <sueldo>5000</sueldo>
+        <edad>28</edad>
+        <cargo>Developer</cargo>
+    </empleado>
+</empleados>

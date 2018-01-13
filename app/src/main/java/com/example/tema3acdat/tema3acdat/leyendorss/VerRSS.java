@@ -1,4 +1,4 @@
-package com.example.tema3acdat.tema3acdat;
+package com.example.tema3acdat.tema3acdat.leyendorss;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.tema3acdat.tema3acdat.R;
 import com.example.tema3acdat.tema3acdat.pojo.Post;
 import com.example.tema3acdat.tema3acdat.utils.CheckerXML;
 import com.example.tema3acdat.tema3acdat.utils.RestClient;
