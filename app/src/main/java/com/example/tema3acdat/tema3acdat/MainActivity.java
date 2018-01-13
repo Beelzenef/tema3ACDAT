@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.example.tema3acdat.tema3acdat.estacionbicis.BiziZaragoza;
 import com.example.tema3acdat.tema3acdat.leyendorss.LectorRSS;
 
 public class MainActivity extends AppCompatActivity {

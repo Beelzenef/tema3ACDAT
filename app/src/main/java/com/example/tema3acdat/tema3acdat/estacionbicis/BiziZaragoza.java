@@ -1,8 +1,9 @@
-package com.example.tema3acdat.tema3acdat.leyendorss;
+package com.example.tema3acdat.tema3acdat.estacionbicis;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,24 +13,24 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.tema3acdat.tema3acdat.R;
+import com.example.tema3acdat.tema3acdat.pojo.Estacion;
 import com.example.tema3acdat.tema3acdat.pojo.Post;
 import com.example.tema3acdat.tema3acdat.utils.CheckerXML;
 import com.example.tema3acdat.tema3acdat.utils.RestClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
-import android.support.design.widget.FloatingActionButton;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class VerRSS extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class BiziZaragoza extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private static String CANAL = "canal";
+    private static String CANAL = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/estacion-bicicleta.xml";
     private static String TEMPORAL = "tmp.xml";
     ListView lista;
-    ArrayList<Post> listaPosts;
-    ArrayAdapter<Post> adapter;
+    ArrayList<Estacion> listaEstaciones;
+    ArrayAdapter<Estacion> adapter;
     FloatingActionButton fab_updatePosts;
 
     @Override
@@ -57,7 +58,7 @@ public class VerRSS extends AppCompatActivity implements View.OnClickListener, A
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
                 progreso.dismiss();
-                Toast.makeText(VerRSS.this, "Algo ha salido mal... :(",
+                Toast.makeText(BiziZaragoza.this, "Algo ha salido mal... :(",
                         Toast.LENGTH_SHORT).show();
             }
 
@@ -65,10 +66,10 @@ public class VerRSS extends AppCompatActivity implements View.OnClickListener, A
             public void onSuccess(int statusCode, Header[] headers, File file) {
                 try {
                     progreso.dismiss();
-                    listaPosts = CheckerXML.leerPosts(file);
+                    listaEstaciones = CheckerXML.leerEstaciones(file);
                     mostrar();
                 } catch (Exception e) {
-                    Toast.makeText(VerRSS.this, "¡Error! :(",
+                    Toast.makeText(BiziZaragoza.this, "¡Error! :(",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -85,14 +86,14 @@ public class VerRSS extends AppCompatActivity implements View.OnClickListener, A
     }
 
     private void mostrar() {
-        if (listaPosts != null)
+        if (listaEstaciones != null)
             if (adapter == null) {
-                adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, listaPosts);
+                adapter = new ArrayAdapter<Estacion>(this, android.R.layout.simple_list_item_1, listaEstaciones);
                 lista.setAdapter(adapter);
             }
             else {
                 adapter.clear();
-                adapter.addAll(listaPosts);
+                adapter.addAll(listaEstaciones);
             }
         else
             Toast.makeText(getApplicationContext(), "Error al crear la lista", Toast.LENGTH_SHORT).show();
@@ -100,12 +101,13 @@ public class VerRSS extends AppCompatActivity implements View.OnClickListener, A
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Uri uri = Uri.parse((String) listaPosts.get(position).getLink());
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        if (intent.resolveActivity(getPackageManager()) != null)
-            startActivity(intent);
-        else
-            Toast.makeText(getApplicationContext(), "No hay un navegador", Toast.LENGTH_SHORT).show();
-    }
+        Estacion estacionElegida = listaEstaciones.get(position);
 
+        Bundle b = new Bundle();
+        b.putParcelable(Estacion.TAG, estacionElegida);
+        Intent intent = new Intent(BiziZaragoza.this, EstacionActivity.class);
+        intent.putExtra("Bundle", b);
+        startActivity(intent);
+
+    }
 }

@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.tema3acdat.tema3acdat.BiziZaragoza">
+    tools:context="com.example.tema3acdat.tema3acdat.estacionbicis.BiziZaragoza">
 
 </android.support.constraint.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.content.res.XmlResourceParser;
 import android.util.Xml;
 
 import com.example.tema3acdat.tema3acdat.R;
+import com.example.tema3acdat.tema3acdat.pojo.Estacion;
 import com.example.tema3acdat.tema3acdat.pojo.Post;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -49,68 +50,6 @@ public class CheckerXML {
         return cadena.toString();
     }
 
-    /*
-    public static String analizarXmlGet(Context c) throws XmlPullParserException, IOException {
-        boolean esNombre = false;
-        boolean esNota = false;
-        StringBuilder stringResultante = new StringBuilder();
-        Double suma = 0.0;
-        int contador = 0;
-
-        XmlResourceParser xrp = c.getResources().getXml(R.xml.alumnos);
-        int eventType = xrp.getEventType();
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            switch (eventType) {
-                case XmlPullParser.START_TAG:
-                    if (xrp.getName().equals("nombre")) {
-                        esNombre = true;
-                    }
-
-                    if (xrp.getName().equals("nota")) {
-                        esNota = true;
-
-                        for (int i = 0; i < xrp.getAttributeCount(); i++) {
-                            stringResultante.append(xrp.getAttributeName(i) + ": " + xrp.getAttributeValue(i) + "\n");
-                            contador++;
-                        }
-                    }
-
-                    if (xrp.getName().equals("observaciones")) {
-
-                    }
-                    break;
-                case XmlPullParser.TEXT:
-
-                    if (esNombre) {
-                        stringResultante.append("Nombre: " + xrp.getText() + "\n");
-                    }
-                    else if (esNota) {
-                        suma += Double.parseDouble(xrp.getText());
-                        stringResultante.append("Nota: " + xrp.getText() + "\n");
-                    }
-                    else {
-                        stringResultante.append("Observaciones: " + xrp.getText() + "\n");
-                    }
-
-                    break;
-                case XmlPullParser.END_TAG:
-                    if (xrp.getName().equals("nombre"))
-                        esNombre = false;
-                    if (xrp.getName().equals("nota"))
-                        esNota = false;
-                    if (xrp.getName().equals("alumno"))
-                        stringResultante.append("\n");
-                    break;
-            }
-            eventType = xrp.next();
-        }
-
-        stringResultante.append("Media de todas las notas : " + String.format("%.2f", suma / contador));
-        xrp.close();
-        return stringResultante.toString();
-    }
-
-*/
     public static String analizarXmlNextText(Context c) throws XmlPullParserException, IOException {
 
         StringBuilder stringResultante = new StringBuilder();
@@ -188,7 +127,7 @@ public class CheckerXML {
         return builder.toString();
     }
 
-    public static ArrayList<Post> analizarNoticias(File file) throws XmlPullParserException, IOException {
+    public static ArrayList<Post> leerPosts(File file) throws XmlPullParserException, IOException {
         int eventType;
 
         ArrayList<Post> posts = null;
@@ -235,5 +174,54 @@ public class CheckerXML {
         }
         //devolver el array de posts
         return posts;
+    }
+
+    public static ArrayList<Estacion> leerEstaciones(File file) throws XmlPullParserException, IOException {
+        int eventType;
+
+        ArrayList<Estacion> estaciones = null;
+        Estacion actual = null;
+        boolean dentroItem = false;
+
+        XmlPullParser xpp = Xml.newPullParser();
+        xpp.setInput(new FileReader(file));
+        eventType = xpp.getEventType();
+
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            switch (eventType) {
+                case XmlPullParser.START_DOCUMENT:
+                    estaciones = new ArrayList<>();
+                    break;
+                case XmlPullParser.START_TAG:
+                    if (xpp.getName().equals("estacion-bicicleta")) {
+                        dentroItem = true;
+                        actual = new Estacion();
+                    }
+
+                    if (dentroItem && xpp.getName().equals("title")) {
+                        actual.setDireccion(xpp.nextText());
+                    }
+                    if (dentroItem && xpp.getName().equals("estado")) {
+                        actual.setEstado(xpp.nextText());
+                    }
+                    if (dentroItem && xpp.getName().equals("bicisDisponibles")) {
+                        actual.setBicisDisponibles(Integer.parseInt(xpp.nextText()));
+                    }
+                    if (dentroItem && xpp.getName().equals("anclajesDisponibles")) {
+                        actual.setAnclajes(Integer.parseInt(xpp.nextText()));
+                    }
+
+                    break;
+                case XmlPullParser.END_TAG:
+                    if (xpp.getName().equals("estacion-bicicleta")) {
+                        dentroItem = false;
+                        estaciones.add(actual);
+                    }
+                    break;
+            }
+            eventType = xpp.next();
+        }
+        //Devolver el array de estaciones
+        return estaciones;
     }
 }
