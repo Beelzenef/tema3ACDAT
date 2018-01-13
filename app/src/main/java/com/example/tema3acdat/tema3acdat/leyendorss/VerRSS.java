@@ -37,7 +37,7 @@ public class VerRSS extends AppCompatActivity implements View.OnClickListener, A
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_rss);
 
-        CANAL = getIntent().getExtras().getString("RSS");
+        CANAL = getIntent().getExtras().getBundle("Bundle").getString("RSS");
 
         lista = (ListView) findViewById(R.id.listView);
         lista.setOnItemClickListener(this);

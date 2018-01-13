@@ -2,10 +2,26 @@
 
 Ejercicios de tema 3 para ACDAT, XML!
 
-- [ ] Gestión de empleados a través de XML
+## ✔ Gestión de empleados a través de XML
 
-- [ ] Málaga Meteo
+Lectura de XML integrado en el proyecto. Cálculo de media de edades, sueldo mayor y sueldo menor. Información sencilla y limitada según los estándares de XML.
 
-- [ ] Bizi Zaragoza
+## Málaga Meteo
 
-- [ ] Lector RSS 
+Lectura de previsiones del tiempo según AEMET.
+
+## ✔ Bizi Zaragoza
+
+Lectura de dirección, estado, vehículos disponibles y anclajes en las estaciones del servicio público en Zaragoza.
+
+Se implementa la interfaz [Parcelable](https://developer.android.com/reference/android/os/Parcelable.html) para la visualización al detalle de una estación elegida de la lista.
+
+## ✔ Lector RSS 
+
+Se han seleccionado tres medios digitales para leer su RSS:
+
+* [Geekstorming!](https://geekstorming.wordpress.com)
+* [Linux Magazine](www.linux-magazine.com)
+* [Next Stop](https://putifruta.wordpress.com)
+
+Puedes elegir el medio adecuado para recoger las últimas publicaciones de cada web, y estar informado de sus novedades y noticias.

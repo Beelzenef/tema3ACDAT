@@ -27,15 +27,15 @@ public class LectorRSS extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.btn_LeerGeekstorming:
                 b.putString("RSS", "https://geekstorming.wordpress.com/feed/");
-                intent.putExtra("Canal", b);
+                intent.putExtra("Bundle", b);
                 break;
             case R.id.btn_LeerNextStop:
                 b.putString("RSS", "https://putifruta.wordpress.com/feed/");
-                intent.putExtra("Canal", b);
+                intent.putExtra("Bundle", b);
                 break;
             case R.id.btn_LeerLinuxMagazine:
                 b.putString("RSS", "http://www.linux-magazine.com/rss/feed/lmi_news");
-                intent.putExtra("Canal", b);
+                intent.putExtra("Bundle", b);
                 break;
         }
 

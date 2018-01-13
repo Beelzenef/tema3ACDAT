@@ -23,7 +23,7 @@ public class EstacionActivity extends AppCompatActivity {
 
         findViews();
 
-        estacionElegida = getIntent().getExtras().getParcelable(Estacion.TAG);
+        estacionElegida = getIntent().getExtras().getBundle("Bundle").getParcelable(Estacion.TAG);
 
         edT_Estado.setText(estacionElegida.getEstado());
         edT_Direccion.setText(estacionElegida.getDireccion());
