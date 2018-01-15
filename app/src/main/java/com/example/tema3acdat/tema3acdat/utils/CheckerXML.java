@@ -20,6 +20,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Analizador de XML
@@ -27,38 +28,9 @@ import java.util.ArrayList;
 
 public class CheckerXML {
 
-    public static String analizar(String texto) throws XmlPullParserException, IOException {
-        StringBuilder cadena = new StringBuilder();
-        XmlPullParser xpp = Xml.newPullParser();
-        xpp.setInput(new StringReader(texto));
-        int eventType = xpp.getEventType();
-        cadena.append("Leyendo XML:\n ");
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-
-            if (eventType == XmlPullParser.START_DOCUMENT)
-                cadena.append("START DOCUMENT \n");
-            if (eventType == XmlPullParser.START_TAG)
-                cadena.append("START TAG: " + xpp.getName() + "\n");
-            if (eventType == XmlPullParser.TEXT)
-                cadena.append("CONTENT: " + xpp.getText() + "\n");
-            if (eventType == XmlPullParser.END_TAG)
-                cadena.append("END TAG: " + xpp.getName() + "\n");
-            eventType = xpp.next();
-        }
-
-        cadena.append("END DOCUMENT");
-        return cadena.toString();
-    }
-
     public static String analizarXmlNextText(Context c) throws XmlPullParserException, IOException {
 
         StringBuilder stringResultante = new StringBuilder();
-
-        double suma = 0.0;
-        int contador = 0;
-
-        int mayorSueldo = 0;
-        int menorSueldo = 0;
 
         XmlResourceParser xrp = c.getResources().getXml(R.xml.empleados);
         int eventType = xrp.getEventType();
@@ -78,7 +50,6 @@ public class CheckerXML {
                     if (xrp.getName().equals("edad")) {
                         //suma += Double.parseDouble(xrp.getText());
                         stringResultante.append("Edad: " + xrp.nextText() + "\n");
-                        contador++;
                     }
 
                     if (xrp.getName().equals("cargo")) {
@@ -94,35 +65,6 @@ public class CheckerXML {
 
         xrp.close();
         return stringResultante.toString();
-    }
-
-
-
-    public static String analizarRSS(File file) throws NullPointerException, XmlPullParserException, IOException {
-
-        boolean dentroItem = false;
-
-        StringBuilder builder = new StringBuilder();
-        XmlPullParser xpp = Xml.newPullParser();
-        xpp.setInput(new FileReader(file));
-
-        int eventType = xpp.getEventType();
-
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            switch (eventType) {
-                case XmlPullParser.START_TAG:
-                    if (xpp.getName().equals("item"))
-                        dentroItem = true;
-
-                    if (dentroItem && xpp.getName().equals("title")) {
-                        builder.append("Post: " + xpp.nextText() + "\n");
-                        dentroItem = false;
-                    }
-                    break;
-            }
-            eventType = xpp.next();
-        }
-        return builder.toString();
     }
 
     public static ArrayList<Post> leerPosts(File file) throws XmlPullParserException, IOException {
@@ -221,5 +163,60 @@ public class CheckerXML {
         }
         //Devolver el array de estaciones
         return estaciones;
+    }
+
+    public static String getPrevision(String fecha, File file) throws XmlPullParserException, IOException {
+
+        StringBuilder stringResultante = new StringBuilder();
+
+        boolean dentroItem = false;
+        boolean dentroTemperatura = false;
+
+        XmlPullParser xpp = Xml.newPullParser();
+        xpp.setInput(new FileReader(file));
+        int eventType = xpp.getEventType();
+
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            switch (eventType) {
+                case XmlPullParser.START_TAG:
+
+                    if (xpp.getName().equals("dia")) {
+                        if (xpp.getAttributeValue(0).equals(fecha))
+                            dentroItem = true;
+                        if (dentroItem)
+                        {
+                            stringResultante.append("Previsión para el día: " + fecha + "\n");
+                        }
+                    }
+
+                    if (xpp.getName().equals("temperatura") && dentroItem) {
+                        dentroTemperatura = true;
+                    }
+
+                    if (xpp.getName().equals("maxima") && dentroTemperatura) {
+                        //suma += Double.parseDouble(xrp.getText());
+                        stringResultante.append("Temperatura máxima: " + xpp.nextText() + "\n");
+                    }
+
+                    if (xpp.getName().equals("minima") && dentroTemperatura) {
+                        //suma += Double.parseDouble(xrp.getText());
+                        stringResultante.append("Temperatura mínima: " + xpp.nextText() + "\n");
+                        dentroItem = false;
+                    }
+
+                    break;
+                case XmlPullParser.END_TAG:
+                    if (xpp.getName().equals("dia")) {
+                        dentroItem = false;
+                    }
+
+                    if (xpp.getName().equals("temperatura")) {
+                        dentroTemperatura = false;
+                    }
+                    break;
+            }
+            eventType = xpp.next();
+        }
+        return stringResultante.toString();
     }
 }
