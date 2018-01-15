@@ -6,9 +6,9 @@ Ejercicios de tema 3 para ACDAT, XML!
 
 Lectura de XML integrado en el proyecto. Cálculo de media de edades, sueldo mayor y sueldo menor. Información sencilla y limitada según los estándares de XML.
 
-## Málaga Meteo
+## ✔ Málaga Meteo
 
-Lectura de previsiones del tiempo según AEMET.
+Lectura de previsiones del tiempo según AEMET. Capturadas las previsiones para el día actual y el día siguiente.
 
 ## ✔ Bizi Zaragoza
 
@@ -20,8 +20,7 @@ Se implementa la interfaz [Parcelable](https://developer.android.com/reference/a
 
 Se han seleccionado tres medios digitales para leer su RSS:
 
-* [Geekstorming!](https://geekstorming.wordpress.com)
 * [Linux Magazine](www.linux-magazine.com)
-* [Next Stop](https://putifruta.wordpress.com)
+* [Eurogamer](https://putifruta.wordpress.com)
 
 Puedes elegir el medio adecuado para recoger las últimas publicaciones de cada web, y estar informado de sus novedades y noticias.
