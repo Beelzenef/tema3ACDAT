@@ -25,12 +25,8 @@ public class LectorRSS extends AppCompatActivity {
         Intent intent = new Intent(LectorRSS.this, VerRSS.class);
 
         switch (v.getId()) {
-            case R.id.btn_LeerGeekstorming:
-                b.putString("RSS", "https://geekstorming.wordpress.com/feed/");
-                intent.putExtra("Bundle", b);
-                break;
-            case R.id.btn_LeerNextStop:
-                b.putString("RSS", "https://putifruta.wordpress.com/feed/");
+            case R.id.btn_LeerPCWorld:
+                b.putString("RSS", "https://www.pcworld.com/index.rss");
                 intent.putExtra("Bundle", b);
                 break;
             case R.id.btn_LeerLinuxMagazine:

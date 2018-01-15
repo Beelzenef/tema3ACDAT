@@ -70,30 +70,28 @@ public class CheckerXML {
                         stringResultante.append("Nombre: " + xrp.nextText() + "\n");
                     }
 
-                    if (xrp.getName().equals("cargo")) {
-                        stringResultante.append("Cargo: " + xrp.nextText() + "\n");
-                    }
-                    if (xrp.getName().equals("edad")) {
-                        suma += Double.parseDouble(xrp.getText());
-                        stringResultante.append("Edad: " + xrp.nextText() + "\n");
-                        contador++;
-                    }
                     if (xrp.getName().equals("sueldo")) {
-                        if (Integer.parseInt(xrp.getText()) > mayorSueldo)
-                            mayorSueldo = Integer.parseInt(xrp.getText());
-                        if (Integer.parseInt(xrp.getText()) < menorSueldo)
-                            menorSueldo = Integer.parseInt(xrp.getText());
 
                         stringResultante.append("Sueldo: " + xrp.nextText() + "\n");
                     }
+
+                    if (xrp.getName().equals("edad")) {
+                        //suma += Double.parseDouble(xrp.getText());
+                        stringResultante.append("Edad: " + xrp.nextText() + "\n");
+                        contador++;
+                    }
+
+                    if (xrp.getName().equals("cargo")) {
+                        stringResultante.append("Cargo: " + xrp.nextText() + "\n");
+                    }
+
+
                     break;
             }
             eventType = xrp.next();
         }
 
-        stringResultante.append("Media de todas las edades : " + String.format("%.2f", suma / contador));
-        stringResultante.append("Menor sueldo : " + Integer.toString(menorSueldo));
-        stringResultante.append("Mayor sueldo : " + Integer.toString(mayorSueldo));
+
         xrp.close();
         return stringResultante.toString();
     }

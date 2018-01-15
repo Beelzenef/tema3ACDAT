@@ -38,8 +38,6 @@ public class BiziZaragoza extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_rss);
 
-        CANAL = getIntent().getExtras().getString("RSS");
-
         lista = (ListView) findViewById(R.id.listView);
         lista.setOnItemClickListener(this);
         fab_updatePosts = (FloatingActionButton) findViewById(R.id.fab_updateNews);
